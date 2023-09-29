@@ -1,14 +1,16 @@
+
+
 #export the region
 output "region" {
     value = var.region
 }
 # export the project name
 output "project_name" {
-    value =var.project-name
+    value =var.project_name
 }
 # export the environment
 output "environment" {
-    value =var.environment
+    value =var.environment_name
 }
 # export the vpc id
 output "vpc_id" {
@@ -33,11 +35,11 @@ output "public_subnet_id" {
 }
 
 #export availability zone 1
-output "availability_zone_1" {
-    value = data.aws_availability_zones.availability_zones.names[0]
-}
+#output "availability_zone_1" {
+ #   value = data.aws_availability_zones.availability_zones.names[0]
+#}
 
 #export availability zone 1
-output "availability_zone_2" {
-    value = data.aws_availability_zones.availability_zones.names[1]
-}
+#output "availability_zone_2" {
+ #   value = data.aws_availability_zones.availability_zones.names[1]
+#}

@@ -9,26 +9,19 @@ terraform {
 
 # Configure the AWS Provider
 provider "aws" {
-  region = var.region
+  region = "us-west-2"
 }
 
 
 
 module "vpc-module" {
-    source = "./module_vpc"
-    environment_name = ""
-    vpc_cidr = ""
-    public_subnet_az1_cidr = ""
-    public_subnet_az2_cidr =""
-    private_subnet_az1_cidr = ""
-  
+  source                  = "./module-vpc"
+  project_name            = "inventory"
+  environment_name        = "dev"
+  vpc_cidr                = "10.0.0.0/16"
+  public_subnet_az1_cidr  = "10.0.2.0/24"
+  public_subnet_az2_cidr  = "10.0.20.0/24"
+  private_subnet_az1_cidr = "10.0.30.0/24"
 }
-module "vpc-module" {
-    source = "./module_vpc"
-    environment_name = ""
-    vpc_cidr = ""
-    public_subnet_az1_cidr = ""
-    public_subnet_az2_cidr =""
-    private_subnet_az1_cidr = ""
-  
-}
+
+##https://serverfault.com/questions/931609/##terraform-how-to-reference-the-subnet-created-in-the-vpc-module

@@ -2,13 +2,19 @@
 # terraform aws create vpc
 resource "aws_vpc" "vpc" {
   cidr_block              = var.vpc_cidr 
-  instance_tenancy        = default
+  instance_tenancy        = "default"
   enable_dns_hostnames    = true
 
   tags      = {
     Name    = "${var.project_name}-${var.environment_name}-vpc"
   }
 }
+
+## retrieve data resource for availability zone
+data "aws_availability_zones" "availability_zones" { 
+    state = "available"
+    }
+
 
 # create internet gateway and attach it to vpc
 # terraform aws create internet gateway
@@ -94,8 +100,7 @@ resource "aws_subnet" "private_subnet_az2" {
 
 # elastic ip for NAT gateway
 resource "aws_eip" "eip_for_nat" {
-  vpc_id = aws_vpc.vpc.id
-
+  domain = "vpc"
   tags = {
     Name    = "${var.project_name}-${var.environment_name}-eip-for-nat-gateway"
   }
@@ -115,9 +120,9 @@ resource "aws_nat_gateway" "nat_gateway" {
 resource "aws_route_table" "nat_route_table" {
   vpc_id       = aws_vpc.vpc.id
 
-  route = {
+  route {
     cidr_block = var.internet_cidr_route
-    nat_gateway_id =aws_nat_gateway.nat_gateway.id
+    nat_gateway_id = aws_nat_gateway.nat_gateway.id
   }
 
   tags       = {
@@ -127,13 +132,9 @@ resource "aws_route_table" "nat_route_table" {
 
 # private route table association
 
-resource "aws_route" "private_route_table_association" {
+resource "aws_route_table_association" "private_route_table_association" {
   subnet_id = aws_subnet.private_subnet_az2.id
+  route_table_id = aws_route_table.nat_route_table.id
 
-  route_table_id         = aws_route_table.nat_route_table.id
-
-  tags       = {
-    Name     = "${var.project_name}-${var.environment_name}-nat-route-table-association"
-  }
 }
 

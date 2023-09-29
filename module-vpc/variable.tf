@@ -2,12 +2,12 @@
 variable "region"{
     type = string
     description = ""
-    default = ""
+    default = "us-west-2"
  }
 variable "project_name"{
     type = string
     description = ""
-    default = "inventory"
+    default = ""
  }
 variable "environment_name"{ 
     type = string
@@ -21,6 +21,7 @@ variable "vpc_cidr"{
     description = ""
     default = ""
  }
+
 variable "public_subnet_az1_cidr"{
     type = string
     description = ""
@@ -33,9 +34,8 @@ variable "public_subnet_az2_cidr"{
 }
 
 variable "internet_cidr_route" {
-  type = string
-    description = "route table open to the internet"
-    default = "0.0.0.0/0"
+  description = "route table open to the internet"
+  default = "0.0.0.0/0"
 }
 
 variable "private_subnet_az1_cidr"{ 
