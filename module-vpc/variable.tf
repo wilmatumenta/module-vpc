@@ -9,7 +9,7 @@ variable "project_name"{
     description = ""
     default = ""
  }
-variable "environment_name"{ 
+variable "environment"{ 
     type = string
     description = ""
     default = ""
@@ -27,11 +27,6 @@ variable "public_subnet_az1_cidr"{
     description = ""
     default = ""
  }
-variable "public_subnet_az2_cidr"{ 
-    type = string
-    description = ""
-    default = ""
-}
 
 variable "internet_cidr_route" {
   description = "route table open to the internet"
